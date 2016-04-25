@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import ru.xxlabaza.javafx.table.FilteredTable?>
+<?import ru.xxlabaza.javafx.table.column.ComboBoxFilteredColumn?>
+<?import ru.xxlabaza.javafx.table.column.DateFilteredColumn?>
+<?import ru.xxlabaza.javafx.table.column.NumberFilteredColumn?>
+<?import ru.xxlabaza.javafx.table.column.TextFilteredColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+
+
+<VBox fx:controller="ru.xxlabaza.javafx.table.TestController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <FilteredTable fx:id="table" VBox.vgrow="ALWAYS" prefHeight="400.0" prefWidth="660.0">
+            <toolbar>
+                <FXCollections fx:factory="observableHashMap">
+                    <page>Страница</page>
+                    <of>из</of>
+                    <view>Смотреть по</view>
+                    <total>Найдено всего</total>
+                    <records>записей</records>
+                    <reset>Сбросить</reset>
+                    <filter>Фильтровать</filter>
+                </FXCollections>
+            </toolbar>
+            <columns>
+                <TextFilteredColumn text="Name" 
+                                    field="name" 
+                                    promptText="search by name"/>
+                <DateFilteredColumn text="Created" 
+                                    field="created" 
+                                    fromPrompt="From" 
+                                    toPrompt="To" 
+                                    datePattern="dd-MM-yyyy"/>
+                <NumberFilteredColumn text="Age" 
+                                      field="age" 
+                                      fromPrompt="From" 
+                                      toPrompt="To"/>
+                <ComboBoxFilteredColumn text="Visible"
+                                        field="visible">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="All" />
+                            <String fx:value="Yes" />
+                            <String fx:value="No" />
+                        </FXCollections>
+                    </items>
+                </ComboBoxFilteredColumn>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+            <placeholder>
+                <Label text="Nope..."/>
+            </placeholder>
+        </FilteredTable>
+   </children>
+</VBox>
