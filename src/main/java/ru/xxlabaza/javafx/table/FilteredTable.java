@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Artem Labazin <xxlabaza@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -83,6 +83,10 @@ public class FilteredTable<T> extends VBox {
         getChildren().addAll(toolBar, table);
         VBox.setVgrow(toolBar, NEVER);
         VBox.setVgrow(table, ALWAYS);
+    }
+
+    public TableView.TableViewSelectionModel<T> getSelectionModel () {
+        return table.getSelectionModel();
     }
 
     public void setPlaceholder (Node value) {

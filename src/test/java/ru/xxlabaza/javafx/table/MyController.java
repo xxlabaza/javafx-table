@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Artem Labazin <xxlabaza@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +32,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import lombok.Data;
-import ru.xxlabaza.javafx.table.FilteredTable;
 
 /**
  * @author Artem Labazin <xxlabaza@gmail.com>
