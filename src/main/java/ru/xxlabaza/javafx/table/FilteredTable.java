@@ -151,6 +151,10 @@ public class FilteredTable<T> extends VBox {
         return table.getItems();
     }
 
+    public Integer getPageNumber () {
+        return toolBar.getPageNumber();
+    }
+
     public IntegerProperty pageNumberProperty () {
         return toolBar.pageNumberProperty();
     }
