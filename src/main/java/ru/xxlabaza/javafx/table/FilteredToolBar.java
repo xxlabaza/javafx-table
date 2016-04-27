@@ -122,11 +122,15 @@ class FilteredToolBar extends ToolBar {
         return pageSize.getValue();
     }
 
-    void setOnResetAction (EventHandler<ActionEvent> event) {
+    void setOnResetFiltersAction (EventHandler<ActionEvent> event) {
         reset.setOnAction(event);
     }
 
-    void setOnSubmitAction (EventHandler<ActionEvent> event) {
+    void resetFilters () {
+        reset.fire();
+    }
+
+    void setOnSubmitFiltersAction (EventHandler<ActionEvent> event) {
         filter.setOnAction(event);
     }
 }

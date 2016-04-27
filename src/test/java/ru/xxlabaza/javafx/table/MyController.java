@@ -65,7 +65,7 @@ public class MyController implements Initializable {
                 new MyClass("Artem Labazin", new Date(), false, 76),
                 new MyClass("Artem Labazin", new Date(), false, 9)
         ));
-        table.setOnSubmitAction(event -> {
+        table.setOnSubmitFiltersAction(event -> {
             table.getFilters().entrySet().stream().forEach(it -> {
                 System.out.println(it.getKey() + ": " + it.getValue());
             });

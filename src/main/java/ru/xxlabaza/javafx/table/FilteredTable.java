@@ -140,17 +140,21 @@ public class FilteredTable<T> extends VBox {
         return toolBar.getPageSize();
     }
 
-    public void setOnSubmitAction (EventHandler<ActionEvent> event) {
-        toolBar.setOnSubmitAction(event);
+    public void setOnSubmitFiltersAction (EventHandler<ActionEvent> event) {
+        toolBar.setOnSubmitFiltersAction(event);
     }
 
-    public void setOnResetAction (EventHandler<ActionEvent> eventHandler) {
-        toolBar.setOnResetAction(event -> {
+    public void setOnResetFiltersAction (EventHandler<ActionEvent> eventHandler) {
+        toolBar.setOnResetFiltersAction(event -> {
             table.getColumns().stream()
                     .filter(column -> column instanceof AbstractFilteredColumn)
                     .forEach(column -> ((AbstractFilteredColumn) column).resetEditor());
 
             eventHandler.handle(event);
         });
+    }
+
+    public void resetFilters () {
+        toolBar.resetFilters();
     }
 }
