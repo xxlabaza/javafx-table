@@ -6,6 +6,8 @@
 package ru.xxlabaza.javafx.table;
 
 import java.util.regex.Pattern;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.TextField;
 
 /**
@@ -18,6 +20,15 @@ public class IntegerTextField extends TextField {
 
     static {
         INTEGER_PATTERN = Pattern.compile("\\d+");
+    }
+
+    private final IntegerProperty valueProperty;
+
+    {
+        valueProperty = new SimpleIntegerProperty();
+        textProperty().addListener((observable, oldValue, newValue) -> {
+            valueProperty.setValue(Integer.parseInt(newValue));
+        });
     }
 
     public IntegerTextField () {
@@ -42,7 +53,11 @@ public class IntegerTextField extends TextField {
     }
 
     public Integer getValue () {
-        return Integer.parseInt(getText());
+        return valueProperty.getValue();
+    }
+
+    public IntegerProperty valueProperty () {
+        return valueProperty;
     }
 
     @Override

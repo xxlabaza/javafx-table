@@ -17,8 +17,8 @@ package ru.xxlabaza.javafx.table;
 
 import java.util.List;
 import java.util.Map;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -124,8 +124,12 @@ class FilteredToolBar extends ToolBar {
         }
     }
 
-    StringProperty pageNumberProperty () {
-        return pageNumber.textProperty();
+    IntegerProperty pageNumberProperty () {
+        return pageNumber.valueProperty();
+    }
+
+    Integer getPageNumber () {
+        return pageNumber.getValue();
     }
 
     void setTotalPages (int totalPages) {

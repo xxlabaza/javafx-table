@@ -20,8 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javafx.beans.NamedArg;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -151,7 +151,7 @@ public class FilteredTable<T> extends VBox {
         return table.getItems();
     }
 
-    public StringProperty pageNumberProperty () {
+    public IntegerProperty pageNumberProperty () {
         return toolBar.pageNumberProperty();
     }
 
