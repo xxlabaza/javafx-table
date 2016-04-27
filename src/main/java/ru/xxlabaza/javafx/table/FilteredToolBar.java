@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Artem Labazin <xxlabaza@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,7 +63,7 @@ class FilteredToolBar extends ToolBar {
         pageNumber.setPrefColumnCount(3);
         pageNumber.setAlignment(CENTER);
 
-        totalPages = new Label("1");
+        totalPages = new Label("0");
 
         previousPage = new Button("<");
         previousPage.disableProperty().bind(pageNumber.textProperty().isEqualTo("1"));
@@ -116,6 +116,10 @@ class FilteredToolBar extends ToolBar {
 
     ObjectProperty<SingleSelectionModel<Integer>> pageSizeSelectionProperty () {
         return pageSize.selectionModelProperty();
+    }
+
+    Integer getPageSize () {
+        return pageSize.getValue();
     }
 
     void setOnResetAction (EventHandler<ActionEvent> event) {

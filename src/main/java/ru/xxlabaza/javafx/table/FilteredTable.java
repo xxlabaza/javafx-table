@@ -141,6 +141,10 @@ public class FilteredTable<T> extends VBox {
         return toolBar.pageSizeSelectionProperty();
     }
 
+    public Integer getPageSize () {
+        return toolBar.getPageSize();
+    }
+
     public void setOnSubmitAction (EventHandler<ActionEvent> event) {
         toolBar.setOnSubmitAction(event);
     }
