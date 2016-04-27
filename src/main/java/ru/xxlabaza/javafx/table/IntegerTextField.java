@@ -27,7 +27,9 @@ public class IntegerTextField extends TextField {
     {
         valueProperty = new SimpleIntegerProperty();
         textProperty().addListener((observable, oldValue, newValue) -> {
-            valueProperty.setValue(Integer.parseInt(newValue));
+            valueProperty.setValue(newValue == null || newValue.isEmpty()
+                                   ? 0
+                                   : Integer.parseInt(newValue));
         });
     }
 

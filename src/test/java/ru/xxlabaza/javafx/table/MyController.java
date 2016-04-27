@@ -26,6 +26,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
@@ -66,7 +68,7 @@ public class MyController implements Initializable {
                 new MyClass("Artem Labazin", new Date(), false, 76),
                 new MyClass("Artem Labazin", new Date(), false, 9)
         ));
-        table.setTotalPages(0);
+        table.setTotalPages(13);
 //        table.setOnSubmitFiltersAction(event -> {
 //            table.getFilters().entrySet().stream().forEach(it -> {
 //                System.out.println(it.getKey() + ": " + it.getValue());
@@ -76,6 +78,13 @@ public class MyController implements Initializable {
             change.getMap().entrySet().stream().forEach(it -> {
                 System.out.println(it.getKey() + ": " + it.getValue());
             });
+        });
+        table.pageNumberProperty().addListener(new ChangeListener<Number>() {
+
+            @Override
+            public void changed (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                System.out.println(newValue);
+            }
         });
     }
 
