@@ -15,6 +15,7 @@
  */
 package ru.xxlabaza.javafx.table;
 
+import java.util.List;
 import java.util.Map;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.StringProperty;
@@ -27,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.ToolBar;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -42,7 +44,7 @@ class FilteredToolBar extends ToolBar {
 
     private final Button previousPage;
 
-    private final NumberTextField pageNumber;
+    private final IntegerTextField pageNumber;
 
     private final Button nextPage;
 
@@ -52,28 +54,40 @@ class FilteredToolBar extends ToolBar {
 
     private final Label totalItems;
 
-    private final Button reset;
+    private final Button buttonRefreshTable;
 
-    private final Button filter;
+    private final Button buttonResetFilters;
 
-    FilteredToolBar (Map<String, String> toolbar) {
+    private Button buttonSubmitFilters;
+
+    FilteredToolBar (Map<String, String> localization, List<Integer> pageSizes,
+                     boolean showSubmitButton
+    ) {
         super();
 
-        pageNumber = new NumberTextField("1");
-        pageNumber.setPrefColumnCount(3);
+        pageNumber = new IntegerTextField("1");
+        pageNumber.setPrefColumnCount(2);
         pageNumber.setAlignment(CENTER);
 
         totalPages = new Label("0");
 
         previousPage = new Button("<");
-        previousPage.disableProperty().bind(pageNumber.textProperty().isEqualTo("1"));
+        previousPage.disableProperty().bind(
+                pageNumber.textProperty().isEqualTo("1")
+                .or(pageNumber.textProperty().isEmpty())
+        );
         previousPage.setOnAction(event -> pageNumber.decriment());
 
         nextPage = new Button(">");
-        nextPage.disableProperty().bind(pageNumber.textProperty().isEqualTo(totalPages.getText()));
+        nextPage.disableProperty().bind(
+                pageNumber.textProperty().isEqualTo(totalPages.getText())
+                .or(pageNumber.textProperty().isEmpty())
+                .or(totalPages.textProperty().isEqualTo("0"))
+        );
         nextPage.setOnAction(event -> pageNumber.increment());
 
-        pageSize = new ComboBox<>(FXCollections.observableArrayList(25, 50, 100));
+        pageSize = new ComboBox<>(FXCollections.observableArrayList(pageSizes));
+
         pageSize.getSelectionModel().select(0);
 
         totalItems = new Label("0");
@@ -81,25 +95,31 @@ class FilteredToolBar extends ToolBar {
         Pane spacer = new Pane();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        reset = new Button(toolbar.getOrDefault("reset", "Reset"));
-        filter = new Button(toolbar.getOrDefault("filter", "Filter"));
+        buttonRefreshTable = new Button(null, new ImageView("images/refresh.png"));
+        buttonResetFilters = new Button(localization.getOrDefault("reset", "Reset"));
 
         getItems().addAll(
-                new Label(toolbar.getOrDefault("page", "Page")),
+                new Label(localization.getOrDefault("page", "Page")),
                 previousPage,
                 pageNumber,
                 nextPage,
-                new Label(toolbar.getOrDefault("of", "of")),
+                new Label(localization.getOrDefault("of", "of")),
                 totalPages,
                 new Separator(VERTICAL),
-                new Label(toolbar.getOrDefault("view", "View")), pageSize,
+                new Label(localization.getOrDefault("view", "View")), pageSize,
                 new Separator(VERTICAL),
-                new Label(toolbar.getOrDefault("total", "Found total")),
+                new Label(localization.getOrDefault("total", "Found total")),
                 totalItems,
-                new Label(toolbar.getOrDefault("records", "records")),
+                new Label(localization.getOrDefault("records", "records")),
                 spacer,
-                reset, filter
+                buttonRefreshTable,
+                buttonResetFilters
         );
+
+        if (showSubmitButton) {
+            buttonSubmitFilters = new Button(localization.getOrDefault("filter", "Filter"));
+            getItems().add(buttonSubmitFilters);
+        }
     }
 
     StringProperty pageNumberProperty () {
@@ -123,14 +143,18 @@ class FilteredToolBar extends ToolBar {
     }
 
     void setOnResetFiltersAction (EventHandler<ActionEvent> event) {
-        reset.setOnAction(event);
+        buttonResetFilters.setOnAction(event);
     }
 
     void resetFilters () {
-        reset.fire();
+        buttonResetFilters.fire();
     }
 
     void setOnSubmitFiltersAction (EventHandler<ActionEvent> event) {
-        filter.setOnAction(event);
+        buttonSubmitFilters.setOnAction(event);
+    }
+
+    void setOnRefreshTableAction (EventHandler<ActionEvent> event) {
+        buttonRefreshTable.setOnAction(event);
     }
 }

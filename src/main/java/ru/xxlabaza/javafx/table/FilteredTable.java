@@ -15,7 +15,9 @@
  */
 package ru.xxlabaza.javafx.table;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javafx.beans.NamedArg;
 import javafx.beans.property.ObjectProperty;
@@ -50,13 +52,42 @@ public class FilteredTable<T> extends VBox {
     private final ObservableMap<String, Object> filters;
 
     public FilteredTable () {
-        this(new HashMap<>(0));
+        this(new HashMap<>(0), Arrays.asList(25, 50, 100), true);
     }
 
     public FilteredTable (@NamedArg("toolbar") Map<String, String> toolbar) {
+        this(toolbar, Arrays.asList(25, 50, 100), true);
+    }
+
+    public FilteredTable (@NamedArg("showSubmitButton") Boolean showSubmitButton) {
+        this(new HashMap<>(0), Arrays.asList(25, 50, 100), showSubmitButton);
+    }
+
+    public FilteredTable (@NamedArg("pageSizes") List<Integer> pageSizes) {
+        this(new HashMap<>(0), pageSizes, true);
+    }
+
+    public FilteredTable (@NamedArg("pageSizes") List<Integer> pageSizes,
+                          @NamedArg("showSubmitButton") Boolean showSubmitButton) {
+        this(new HashMap<>(0), pageSizes, showSubmitButton);
+    }
+
+    public FilteredTable (@NamedArg("toolbar") Map<String, String> toolbar,
+                          @NamedArg("pageSizes") List<Integer> pageSizes) {
+        this(toolbar, pageSizes, true);
+    }
+
+    public FilteredTable (@NamedArg("toolbar") Map<String, String> toolbar,
+                          @NamedArg("showSubmitButton") Boolean showSubmitButton) {
+        this(toolbar, Arrays.asList(25, 50, 100), showSubmitButton);
+    }
+
+    public FilteredTable (@NamedArg("toolbar") Map<String, String> toolbar,
+                          @NamedArg("pageSizes") List<Integer> pageSizes,
+                          @NamedArg("showSubmitButton") Boolean showSubmitButton) {
         filters = FXCollections.observableHashMap();
 
-        toolBar = new FilteredToolBar(toolbar);
+        toolBar = new FilteredToolBar(toolbar, pageSizes, showSubmitButton);
 
         table = new TableView<>();
         table.getColumns().addListener((ListChangeListener.Change<? extends TableColumn<T, ?>> change) -> {
@@ -152,6 +183,10 @@ public class FilteredTable<T> extends VBox {
 
             eventHandler.handle(event);
         });
+    }
+
+    public void setOnRefreshTableAction (EventHandler<ActionEvent> eventHandler) {
+        toolBar.setOnRefreshTableAction(eventHandler);
     }
 
     public void resetFilters () {

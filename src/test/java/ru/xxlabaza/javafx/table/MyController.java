@@ -27,6 +27,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -65,16 +66,16 @@ public class MyController implements Initializable {
                 new MyClass("Artem Labazin", new Date(), false, 76),
                 new MyClass("Artem Labazin", new Date(), false, 9)
         ));
-        table.setOnSubmitFiltersAction(event -> {
-            table.getFilters().entrySet().stream().forEach(it -> {
-                System.out.println(it.getKey() + ": " + it.getValue());
-            });
-        });
-//        table.getFilters().addListener((MapChangeListener.Change<? extends String, ? extends Object> change) -> {
-//            change.getMap().entrySet().stream().forEach(it -> {
+//        table.setOnSubmitFiltersAction(event -> {
+//            table.getFilters().entrySet().stream().forEach(it -> {
 //                System.out.println(it.getKey() + ": " + it.getValue());
 //            });
 //        });
+        table.getFilters().addListener((MapChangeListener.Change<? extends String, ? extends Object> change) -> {
+            change.getMap().entrySet().stream().forEach(it -> {
+                System.out.println(it.getKey() + ": " + it.getValue());
+            });
+        });
     }
 
     @Data

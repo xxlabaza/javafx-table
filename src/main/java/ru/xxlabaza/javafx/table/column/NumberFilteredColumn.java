@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Artem Labazin <xxlabaza@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -48,7 +48,7 @@ public class NumberFilteredColumn<S, T> extends AbstractFilteredColumn<S, T> {
             if (newValue == null || newValue.isEmpty()) {
                 filters.remove(getField() + ".from");
             } else {
-                filters.put(getField() + ".from", newValue);
+                filters.put(getField() + ".from", toRu(newValue));
             }
         });
 
@@ -58,7 +58,7 @@ public class NumberFilteredColumn<S, T> extends AbstractFilteredColumn<S, T> {
             if (newValue == null || newValue.isEmpty()) {
                 filters.remove(getField() + ".to");
             } else {
-                filters.put(getField() + ".to", newValue);
+                filters.put(getField() + ".to", toRu(newValue));
             }
         });
 
@@ -71,5 +71,9 @@ public class NumberFilteredColumn<S, T> extends AbstractFilteredColumn<S, T> {
     public void resetEditor () {
         from.clear();
         to.clear();
+    }
+
+    private String toRu (String string) {
+        return string.replaceAll(",", ".").replaceAll("\\s", "");
     }
 }

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Artem Labazin <xxlabaza@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,7 @@
  */
 package ru.xxlabaza.javafx.table;
 
-import java.math.BigDecimal;
+import java.util.regex.Pattern;
 import javafx.scene.control.TextField;
 
 /**
@@ -24,29 +24,17 @@ import javafx.scene.control.TextField;
  */
 public class NumberTextField extends TextField {
 
+    private static final Pattern FLOAT_PATTERN;
+
+    static {
+        FLOAT_PATTERN = Pattern.compile("[\\d,\\s]+");
+    }
+
     public NumberTextField () {
     }
 
     public NumberTextField (String text) {
         super(text);
-    }
-
-    public void increment () {
-        Integer currentValue = getValue();
-        setValue(currentValue + 1);
-    }
-
-    public void decriment () {
-        Integer currentValue = getValue();
-        setValue(currentValue - 1);
-    }
-
-    public void setValue (Integer value) {
-        setText(value.toString());
-    }
-
-    public Integer getValue () {
-        return Integer.parseInt(getText());
     }
 
     @Override
@@ -64,11 +52,6 @@ public class NumberTextField extends TextField {
     }
 
     private boolean isValidValue (String text) {
-        try {
-            new BigDecimal(text);
-        } catch (NumberFormatException ex) {
-            return false;
-        }
-        return true;
+        return text.isEmpty() || FLOAT_PATTERN.matcher(text).matches();
     }
 }
