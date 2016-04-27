@@ -57,11 +57,6 @@ public class FilteredTable<T> extends VBox {
         filters = FXCollections.observableHashMap();
 
         toolBar = new FilteredToolBar(toolbar);
-        toolBar.setOnResetAction(event -> {
-            table.getColumns().stream()
-                    .filter(column -> column instanceof AbstractFilteredColumn)
-                    .forEach(column -> ((AbstractFilteredColumn) column).resetEditor());
-        });
 
         table = new TableView<>();
         table.getColumns().addListener((ListChangeListener.Change<? extends TableColumn<T, ?>> change) -> {
@@ -147,5 +142,15 @@ public class FilteredTable<T> extends VBox {
 
     public void setOnSubmitAction (EventHandler<ActionEvent> event) {
         toolBar.setOnSubmitAction(event);
+    }
+
+    public void setOnResetAction (EventHandler<ActionEvent> eventHandler) {
+        toolBar.setOnResetAction(event -> {
+            table.getColumns().stream()
+                    .filter(column -> column instanceof AbstractFilteredColumn)
+                    .forEach(column -> ((AbstractFilteredColumn) column).resetEditor());
+
+            eventHandler.handle(event);
+        });
     }
 }
