@@ -80,11 +80,13 @@ class FilteredToolBar extends ToolBar {
 
         nextPage = new Button(">");
         nextPage.disableProperty().bind(
-                pageNumber.textProperty().isEqualTo(totalPages.getText())
+                pageNumber.textProperty().isEqualTo(totalPages.textProperty())
                 .or(pageNumber.textProperty().isEmpty())
                 .or(totalPages.textProperty().isEqualTo("0"))
         );
-        nextPage.setOnAction(event -> pageNumber.increment());
+        nextPage.setOnAction(event -> {
+            pageNumber.increment();
+        });
 
         pageSize = new ComboBox<>(FXCollections.observableArrayList(pageSizes));
 
