@@ -50,6 +50,7 @@ public class IntegerTextField extends TextField {
 
     public void setValue (Integer value) {
         setText(value.toString());
+        valueProperty.setValue(value);
     }
 
     public Integer getValue () {

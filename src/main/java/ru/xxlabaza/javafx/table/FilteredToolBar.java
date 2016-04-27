@@ -132,6 +132,10 @@ class FilteredToolBar extends ToolBar {
         return pageNumber.getValue();
     }
 
+    void setPageNumber (Integer page) {
+        pageNumber.setValue(page);
+    }
+
     void setTotalPages (int totalPages) {
         this.totalPages.setText(String.valueOf(totalPages));
     }
