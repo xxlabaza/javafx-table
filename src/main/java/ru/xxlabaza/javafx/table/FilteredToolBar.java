@@ -26,7 +26,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -84,12 +83,9 @@ class FilteredToolBar extends ToolBar {
                 .or(pageNumber.textProperty().isEmpty())
                 .or(totalPages.textProperty().isEqualTo("0"))
         );
-        nextPage.setOnAction(event -> {
-            pageNumber.increment();
-        });
+        nextPage.setOnAction(event -> pageNumber.increment());
 
         pageSize = new ComboBox<>(FXCollections.observableArrayList(pageSizes));
-
         pageSize.getSelectionModel().select(0);
 
         totalItems = new Label("0");
@@ -144,8 +140,8 @@ class FilteredToolBar extends ToolBar {
         this.totalItems.setText(String.valueOf(totalItems));
     }
 
-    ObjectProperty<SingleSelectionModel<Integer>> pageSizeSelectionProperty () {
-        return pageSize.selectionModelProperty();
+    ObjectProperty<Integer> pageSizeValueProperty () {
+        return pageSize.valueProperty();
     }
 
     Integer getPageSize () {

@@ -69,6 +69,9 @@ public class MyController implements Initializable {
                 new MyClass("Artem Labazin", new Date(), false, 9)
         ));
         table.setTotalPages(2);
+        table.pageSizeValueProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("Page size: " + newValue);
+        });
 //        table.setOnSubmitFiltersAction(event -> {
 //            table.getFilters().entrySet().stream().forEach(it -> {
 //                System.out.println(it.getKey() + ": " + it.getValue());

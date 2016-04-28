@@ -29,7 +29,6 @@ import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
@@ -171,8 +170,8 @@ public class FilteredTable<T> extends VBox {
         toolBar.setTotalItems(totalItems);
     }
 
-    public ObjectProperty<SingleSelectionModel<Integer>> pageSizeSelectionProperty () {
-        return toolBar.pageSizeSelectionProperty();
+    public ObjectProperty<Integer> pageSizeValueProperty () {
+        return toolBar.pageSizeValueProperty();
     }
 
     public Integer getPageSize () {
