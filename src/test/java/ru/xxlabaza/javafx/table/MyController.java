@@ -68,7 +68,7 @@ public class MyController implements Initializable {
                 new MyClass("Artem Labazin", new Date(), false, 76),
                 new MyClass("Artem Labazin", new Date(), false, 9)
         ));
-        table.setTotalPages(13);
+        table.setTotalPages(2);
 //        table.setOnSubmitFiltersAction(event -> {
 //            table.getFilters().entrySet().stream().forEach(it -> {
 //                System.out.println(it.getKey() + ": " + it.getValue());

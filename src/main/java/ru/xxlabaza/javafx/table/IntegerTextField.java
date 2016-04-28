@@ -38,6 +38,7 @@ public class IntegerTextField extends TextField {
 
     public IntegerTextField (String text) {
         super(text);
+        setValue(Integer.parseInt(text));
     }
 
     public void increment () {
