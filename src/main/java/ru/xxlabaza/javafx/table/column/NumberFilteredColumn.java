@@ -30,7 +30,7 @@ import static javafx.geometry.Pos.CENTER;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class NumberFilteredColumn<S, T> extends AbstractFilteredColumn<S, T> {
+public class NumberFilteredColumn<S, T extends Number> extends AbstractFilteredColumn<S, T> {
 
     private String fromPrompt;
 

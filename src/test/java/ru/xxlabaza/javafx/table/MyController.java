@@ -16,7 +16,7 @@
 package ru.xxlabaza.javafx.table;
 
 import java.net.URL;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -51,7 +51,7 @@ public class MyController implements Initializable {
         ((TableColumn<MyClass, String>) columns.get(0)).setCellValueFactory(
                 cell -> cell.getValue().nameProperty()
         );
-        ((TableColumn<MyClass, Date>) columns.get(1)).setCellValueFactory(
+        ((TableColumn<MyClass, LocalDateTime>) columns.get(1)).setCellValueFactory(
                 cell -> cell.getValue().createdProperty()
         );
         ((TableColumn<MyClass, Number>) columns.get(2)).setCellValueFactory(
@@ -62,11 +62,11 @@ public class MyController implements Initializable {
         );
 
         table.setItems(FXCollections.observableArrayList(
-                new MyClass("Artem Labazin", new Date(), true, 45),
-                new MyClass("Artem Labazin", new Date(), false, 16),
-                new MyClass("Artem Labazin", new Date(), true, 25),
-                new MyClass("Artem Labazin", new Date(), false, 76),
-                new MyClass("Artem Labazin", new Date(), false, 9)
+                new MyClass("Artem Labazin", LocalDateTime.now(), true, 45),
+                new MyClass("Artem Labazin", LocalDateTime.now(), false, 16),
+                new MyClass("Artem Labazin", LocalDateTime.now(), true, 25),
+                new MyClass("Artem Labazin", LocalDateTime.now(), false, 76),
+                new MyClass("Artem Labazin", LocalDateTime.now(), false, 9)
         ));
         table.setTotalPages(2);
         table.pageSizeValueProperty().addListener((observable, oldValue, newValue) -> {
@@ -96,13 +96,13 @@ public class MyController implements Initializable {
 
         private final StringProperty name;
 
-        private final ObjectProperty<Date> created;
+        private final ObjectProperty<LocalDateTime> created;
 
         private final BooleanProperty visible;
 
         private final IntegerProperty age;
 
-        public MyClass (String name, Date created, boolean visible, int age) {
+        public MyClass (String name, LocalDateTime created, boolean visible, int age) {
             this.name = new SimpleStringProperty(name);
             this.created = new SimpleObjectProperty<>(created);
             this.visible = new SimpleBooleanProperty(visible);
@@ -121,15 +121,15 @@ public class MyController implements Initializable {
             return name;
         }
 
-        public void setCreated (Date created) {
+        public void setCreated (LocalDateTime created) {
             this.created.setValue(created);
         }
 
-        public Date getCreated () {
+        public LocalDateTime getCreated () {
             return created.getValue();
         }
 
-        public ObjectProperty<Date> createdProperty () {
+        public ObjectProperty<LocalDateTime> createdProperty () {
             return created;
         }
 

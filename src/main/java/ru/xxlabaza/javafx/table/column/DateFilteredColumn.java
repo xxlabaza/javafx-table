@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Artem Labazin <xxlabaza@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,9 +17,11 @@ package ru.xxlabaza.javafx.table.column;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.Map;
 import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableCell;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
 import lombok.Data;
@@ -33,7 +35,7 @@ import static javafx.geometry.Pos.CENTER;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class DateFilteredColumn<S, T> extends AbstractFilteredColumn<S, T> {
+public class DateFilteredColumn<S, T extends TemporalAccessor> extends AbstractFilteredColumn<S, T> {
 
     private String fromPrompt;
 
@@ -44,6 +46,30 @@ public class DateFilteredColumn<S, T> extends AbstractFilteredColumn<S, T> {
     private DatePicker from;
 
     private DatePicker to;
+
+    private DateTimeFormatter dateTimeFormatter;
+
+    public DateFilteredColumn () {
+        this(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+    }
+
+    public DateFilteredColumn (DateTimeFormatter dateTimeFormatter) {
+        super();
+        setCellFactory(column -> {
+            return new TableCell<S, T>() {
+
+                @Override
+                protected void updateItem (T item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || empty) {
+                        setText(null);
+                    } else {
+                        setText(dateTimeFormatter.format(item));
+                    }
+                }
+            };
+        });
+    }
 
     @Override
     public Node createEditor (Map<String, Object> filters) {

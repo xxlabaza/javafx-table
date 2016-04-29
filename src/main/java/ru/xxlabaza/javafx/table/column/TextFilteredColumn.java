@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2016 Artem Labazin <xxlabaza@gmail.com>.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +30,7 @@ import static javafx.geometry.Pos.CENTER;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class TextFilteredColumn<S, T> extends AbstractFilteredColumn<S, T> {
+public class TextFilteredColumn<S, T extends String> extends AbstractFilteredColumn<S, T> {
 
     private String promptText;
 
