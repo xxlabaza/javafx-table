@@ -47,14 +47,7 @@ public class DateFilteredColumn<S, T extends TemporalAccessor> extends AbstractF
 
     private DatePicker to;
 
-    private DateTimeFormatter dateTimeFormatter;
-
-    public DateFilteredColumn () {
-        this(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-    }
-
-    public DateFilteredColumn (DateTimeFormatter dateTimeFormatter) {
-        super();
+    public void setDateTimeFormatter (DateTimeFormatter dateTimeFormatter) {
         setCellFactory(column -> {
             return new TableCell<S, T>() {
 
